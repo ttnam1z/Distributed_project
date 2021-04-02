@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CLIENT</title>
+
+	<link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        label {
+                display: inline-block;
+            }
+        button {
+            width: 60px;
+        }
+        
+    </style>
+</head>
+<body onload="onLoad()">
+    <div id = "loginform" name="login" style="display: block;">
+        <h2>LOGIN</h2>
+        <label style="width: 80px;">User Name</label>
+        <input type="text" name="user" id="user_log"><br><br>
+        <label style="width: 80px;">Password </label>
+        <input type="password" name="pass" id="pass_log"><br><br>
+        <button onclick="onLogin()">Login</button><br><br>
+        <button onclick="onChangeRegister()">Register</button>
+    </div>
+    <div id = "registerform" style="display: none;">
+        <h2>REGISTER</h2>
+        <label style="width: 80px;">User Name</label>
+        <input type="text" name="user" id="user_reg"><br><br>
+        <label style="width: 80px;">Password </label>
+        <input type="password" name="pass" id="pass_reg"><br><br>
+        <button onclick="onRegister()">Register</button><br><br>
+        <button onclick="onChangeLogin()">Login</button>
+    </div>
+    <div id="infor" style="display: block;"></div>
+
+    <div id="mainscreen" style="display: none;">
+        <h2>Main Screen</h2>
+        <button onclick="onLogout()">Logout</button>
+    </div>
+    <script type="text/javascript">
+        //const ws = new WebSocket('ws://192.168.99.100:8000');
+    </script>
+	<!--script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.min.js"></script-->
+	<script type="text/javascript" src="main.js"></script>
+</body>
+</html>

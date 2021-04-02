@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CLIENT</title>
+
+	<!--link rel="stylesheet" type="text/css" href="style.css"-->
+    <style>
+        label {
+                display: inline-block;
+            }
+        
+    </style>
+</head>
+<body onload="onLoad()">
+    <div id = "loginform" name="login" style="display: block;">
+        <h2>LOGIN</h2>
+        <label style="width: 80px;">User Name</label>
+        <input type="text" name="user" id="user_log"><br><br>
+        <label style="width: 80px;">Password </label>
+        <input type="password" name="pass" id="pass_log"><br><br>
+        <button onclick="onLogin()">Submit</button>
+        <button onclick="onChangeRegister()">Register</button>
+    </div>
+    <div id = "registerform" style="display: none;">
+        <h2>REGISTER</h2>
+        <label style="width: 80px;">User Name</label>
+        <input type="text" name="user" id="user_reg"><br><br>
+        <label style="width: 80px;">Password </label>
+        <input type="password" name="pass" id="pass_reg"><br><br>
+        <button onclick="onRegister()">Submit</button>
+        <button onclick="onChangeLogin()">Login</button>
+    </div>
+
+    <div id="mainscreen" style="display: none;">
+
+    </div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.min.js"></script>
+	<script type="text/javascript" src="main.js"></script>
+</body>
+</html>
