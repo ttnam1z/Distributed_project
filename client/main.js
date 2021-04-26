@@ -4,6 +4,12 @@ let input_user_log = document.getElementById("user_log");
 let input_pass_log = document.getElementById("pass_log");
 let mainscreen = document.getElementById("mainscreen");
 let notice = document.getElementById("infor");
+
+function show_notice(msg){
+  notice.lastElementChild.lastChild.textContent = msg;
+  notice.style.display = 'block';
+}
+
 function parse_msg(msg){
   data = JSON.parse(msg.data)
   return data
@@ -62,15 +68,13 @@ function onClose(evt){
 function processLoginRes(msg){
   if(msg == "OK"){
     // Change to main screen
+    document.getElementById("main_name").innerHTML = input_user_log.value
     mainscreen.style.display = 'block';
-    notice.style.display = 'none';
     document.getElementById("loginform").style.display = 'none'
     document.getElementById("registerform").style.display = 'none'
-    document.getElementById("main_name").innerHTML = input_user_log.value
   } else {
     // show notify 
-    notice.textContent = "login fail";
-    notice.style.display = 'block';
+    show_notice("login fail");
   }
 }
 
@@ -85,8 +89,7 @@ function processRegisterRes(msg){
     websocket.send(create_data("login",data));
   } else {
     // show notify 
-    notice.textContent = "register fail";
-    notice.style.display = 'block';
+    show_notice("register fail");
   }
 }
 
@@ -113,13 +116,15 @@ function onError(evt){
 function onLogout(){
   websocket.send(create_data("logout","OK"));
   mainscreen.style.display = 'none';
-  onChangeLogin();
+  document.getElementById("loginform").style.display = 'block'
 }
 
 function onLogin(){
+  pass = input_pass_log.value
+  input_pass_log.value = ""
   data = {
     name:input_user_log.value,
-    hashpass:input_pass_log.value
+    hashpass:pass
   }
   websocket.send(create_data("login",data));
 
@@ -131,26 +136,31 @@ function onLogin(){
   // })
 }
 function onRegister(){
+  pass = input_pass_reg.value
+  input_pass_reg.value = ""
   data = {
     name:input_user_reg.value,
-    hashpass:input_pass_reg.value
+    hashpass:pass
   }
   websocket.send(create_data("register",data));
 }
 
-function onChangeLogin(){
-  document.getElementById("loginform").style.display = 'block'
+function onCloseRegister(){
+  //document.getElementById("loginform").style.display = 'block'
   document.getElementById("registerform").style.display = 'none'
-  notice.style.display = 'none';
+  
 }
-function onChangeRegister(){
-  document.getElementById("loginform").style.display = 'none'
+function onShowRegister(){
+  //document.getElementById("loginform").style.display = 'none'
   document.getElementById("registerform").style.display = 'block'
-  notice.style.display = 'none';
+  
 }
+function onCloseNotice(){
+  document.getElementById("infor").style.display='none';
+}
+
 function onMainDev(){
   mainscreen.style.display = 'block';
-  notice.style.display = 'none';
   document.getElementById("loginform").style.display = 'none'
   document.getElementById("registerform").style.display = 'none'
 

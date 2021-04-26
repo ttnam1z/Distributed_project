@@ -6,38 +6,59 @@
 
 	<link rel="stylesheet" type="text/css" href="style.css">
     <style>
+        div {
+            
+        }
         label {
                 display: inline-block;
             }
         button {
-            width: 60px;
+            width: 70px;
+            margin-right: 10px;
         }
         
     </style>
 </head>
-<body>
+<body class = "p-body-inner">
+    <div id = "infor" class ="overlay-container" style="display: none; opacity: 1; overflow: visible;">
+        <div class="alert">
+          <span class="closebtn" onclick="onCloseNotice()">&times;</span>
+          This is an alert box.
+        </div>
+    </div>
     <div id = "loginform" name="login" style="display: block;">
-        <h2>LOGIN</h2>
-        <label style="width: 80px;">User Name</label>
-        <input type="text" name="user" id="user_log"><br><br>
-        <label style="width: 80px;">Password </label>
-        <input type="password" name="pass" id="pass_log"><br><br>
-        <button onclick="onLogin()">Login</button><br><br>
-        <button onclick="onChangeRegister()">Register</button>
+        <div class="overlay-title" style="display: block;">
+            <h2>LOGIN</h2>
+        </div>
+        <div class="overlay-content">
+            <label style="width: 80px;">User Name</label>
+            <input type="text" name="user" id="user_log"><br><br>
+            <label style="width: 80px;">Password </label>
+            <input type="password" name="pass" id="pass_log"><br><br>
+            <button class ="" onclick="onLogin()">Login</button>
+            <button class ="" onclick="onShowRegister()">Register</button>
+        </div>
     </div>
-    <div id = "registerform" style="display: none;">
-        <h2>REGISTER</h2>
-        <label style="width: 80px;">User Name</label>
-        <input type="text" name="user" id="user_reg"><br><br>
-        <label style="width: 80px;">Password </label>
-        <input type="password" name="pass" id="pass_reg"><br><br>
-        <button onclick="onRegister()">Register</button><br><br>
-        <button onclick="onChangeLogin()">Login</button>
+    <div id = "registerform" class ="overlay-container" style="display: none; opacity: 1; overflow: visible;">
+        <div class="overlay">
+            <div class="overlay-title">
+                REGISTER
+                <a class="overlay-titleCloser" onclick="onCloseRegister()">&times;</a>
+            </div>
+            <div class="overlay-content">
+                <label style="width: 80px;">User Name</label>
+                <input type="text" name="user" id="user_reg"><br>
+                <br>
+                <label style="width: 80px;">Password </label>
+                <input type="password" name="pass" id="pass_reg"><br>
+                <br>
+                <button class ="" onclick="onRegister()">Register</button> 
+            </div>
+        </div>
     </div>
-    <div id="infor" style="display: block;"></div>
 
     <div id="mainscreen" style="display: none;">
-        <div class="jumbotron text-center">
+        <div class="overlay-title"  style="display: block;">
             <h2>Main Screen</h2>
         </div>
         <div class="container">
@@ -45,10 +66,7 @@
                 <div>
                     <label>User Name:</label>
                     <label id="main_name">name</label>
-                </div>
-    
-                <div>
-                    <button onclick="onLogout()">Logout</button>
+                    <label class="overlay-titleCloser" onclick="onLogout()">Logout</label>
                 </div>
             </div>
 
