@@ -2,6 +2,7 @@ version: "3.1"
 services:
   dev:
    container_name: chat_project
+   image: distributed_subject:1
    build: 
     context: .
     dockerfile: Dockerfile
@@ -10,6 +11,7 @@ services:
     - ubuntu_disk:/code
    ports:
     - "8000:8080"
+    - "4567:4567"
    #depends_on:
    # - db
    networks:

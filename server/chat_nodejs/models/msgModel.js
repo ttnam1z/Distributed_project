@@ -1,34 +1,7 @@
-const { Sequelize, Model, DataTypes } = require('sequelize');
-
-const sequelize = new Sequelize('distributed_project', 'nam', 'nam_pass', {
-  host: '192.168.99.100',
-  port:3306,
-  dialect: 'mysql'
-});
-
-
-sequelize.authenticate().then(() => {
-  console.log('Connection established successfully.');
-}).catch(err => {
-  console.error('Unable to connect to the database:', err);
-}).finally(() => {
-  sequelize.close();
-});
-
-module.exports = (sequelize,DataTypes,Model)=>{
-  class User extends Model {
-    static classLevelMethod() {
-      return 'foo';
-    }
-    instanceLevelMethod() {
-      return 'bar';
-    }
-    getname() {
-      return this.name;
-    }
-  }
+var { Model, DataTypes } = require('sequelize');
+module.exports = (sequelize)=>{
   
-  User.init({
+  var MessageList = sequelize.define('Message', {
     // Model attributes are defined here
     id:{
       type:DataTypes.INTEGER,
@@ -36,26 +9,42 @@ module.exports = (sequelize,DataTypes,Model)=>{
       primaryKey: true,
       autoIncrement: true
     },
-    name: {
-      type: DataTypes.STRING(20),
-      allowNull: false
+    roomId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "ChatRoom", // this is the table name
+        key: "roomId"
+      }
     },
-    hashpass: {
-      type: DataTypes.STRING(32)
-      // allowNull defaults to true
+    userGlobal: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "UserGlobal", // this is the table name
+        key: "globalId"
+      }
+    },
+    content:{
+      type: DataTypes.STRING(1024)
+    },
+    timeStamp:{
+      type: DataTypes.DATE
     }
   }, {
     // Other model options go here
-    sequelize, // We need to pass the connection instance
-    modelName: 'Customer', // We need to choose the model name
-    tableName: 'User' 
+    modelName: 'Message', // We need to choose the model name
+    tableName: 'Message',
+    timestamps: false //not create createdAt and updateAt timestamps
   });
-  
-  // the defined model is the class itself
-  console.log(User === sequelize.models.User); // true
-  // const jane = await User.create({ name: 'name', hashpass: 'pass' }) //create = buiil + save
-  const user = User.build({ name: 'name', hashpass: 'pass' });
-  await user.save(); 
-  return User;
+
+  // User.comparePassword = (password)=>{
+  //   return (password.hashCode() === this.hashpass);
+  // }
+  // User.sync({force:true}).then(()=>{
+
+  // }).catch(err => {
+  //   console.error('Unable to connect to the database:', err);
+  // });
+  sequelize.models.MessageList = MessageList;
+  return MessageList;
 };
 

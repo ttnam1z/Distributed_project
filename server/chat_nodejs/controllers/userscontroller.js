@@ -3,7 +3,7 @@ var { Sequelize, Model, DataTypes } = require('sequelize');
 module.exports.test = async (sequelize)=>{
   // var User = require('../models/userModel')(sequelize);
   // the defined model is the class itself
-  const User = sequelize.models.User; 
+  const User = sequelize.models.UserLocal; 
   // const jane = await User.create({ name: 'name', hashpass: 'pass' }) //create = buiil + save
   
   var user = User.build({ name: 'name', hashpass: 'pass' });
@@ -12,7 +12,7 @@ module.exports.test = async (sequelize)=>{
 };
 
 module.exports.createUser = async (sequelize,user)=>{
-  const User = sequelize.models.User; 
+  const User = sequelize.models.UserLocal; 
   // const jane = await User.create({ name: 'name', hashpass: 'pass' }) //create = buiil + save
   
   var user = User.build({ name: user.name, hashpass: user.hashpass});
@@ -30,7 +30,7 @@ module.exports.createUser = async (sequelize,user)=>{
 };
 
 module.exports.getUsers = async (sequelize)=>{
-  const User = sequelize.models.User; 
+  const User = sequelize.models.UserLocal; 
   // const jane = await User.create({ name: 'name', hashpass: 'pass' }) //create = buiil + save
   
   const users = await User.findAll();
@@ -43,7 +43,7 @@ module.exports.getUsers = async (sequelize)=>{
 };
 
 module.exports.getUser = async (sequelize, name, hashpass)=>{
-  const User = sequelize.models.User; 
+  const User = sequelize.models.UserLocal; 
   // const jane = await User.create({ name: 'name', hashpass: 'pass' }) //create = buiil + save
   if(hashpass == undefined){
     var user = await User.findOne({ where: { name:name } });

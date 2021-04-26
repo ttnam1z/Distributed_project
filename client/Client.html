@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>CLIENT</title>
 
 	<link rel="stylesheet" type="text/css" href="style.css">
@@ -14,7 +15,7 @@
         
     </style>
 </head>
-<body onload="onLoad()">
+<body>
     <div id = "loginform" name="login" style="display: block;">
         <h2>LOGIN</h2>
         <label style="width: 80px;">User Name</label>
@@ -36,12 +37,62 @@
     <div id="infor" style="display: block;"></div>
 
     <div id="mainscreen" style="display: none;">
-        <h2>Main Screen</h2>
-        <button onclick="onLogout()">Logout</button>
+        <div class="jumbotron text-center">
+            <h2>Main Screen</h2>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div>
+                    <label>User Name:</label>
+                    <label id="main_name">name</label>
+                </div>
+    
+                <div>
+                    <button onclick="onLogout()">Logout</button>
+                </div>
+            </div>
+
+            <div class="row" style="margin: 30px 0 0 0;">
+                <div>
+                    <label>Chat to:</label>
+                    <input type="text">
+                </div>
+            </div>
+
+            <div class="row" style="margin: 30px 0 0 0;">
+                <div class="col-sm-6">
+                    <label>Channel:</label>
+                    <label>Car</label>
+                    <ul>
+                        <li>User1</li>
+                        <li>User2</li>
+                        <li>User3</li>
+                    </ul>
+                </div>
+    
+                <div class="col-sm-6">
+                    <label>Chat bar</label>
+                </div>
+            </div>
+        </div>
+        
+    </div> <br><br>
+
+    <div id="testDiv">
+        <button onclick="onMainDev()" style="width: 80px;">MainDev</button>
     </div>
+    
     <script type="text/javascript">
         //const ws = new WebSocket('ws://192.168.99.100:8000');
     </script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" type="text/css" href="./bootstrap-3.3.7/css/bootstrap.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" type="text/css" href="./bootstrap-3.3.7/css/bootstrap-theme.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script type="text/javascript" src="./bootstrap-3.3.7/js/jquery-3.6.0.js.js"></script>
+    <script type="text/javascript" src="./bootstrap-3.3.7/js/bootstrap.js"></script>
 	<!--script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.min.js"></script-->
 	<script type="text/javascript" src="main.js"></script>
 </body>

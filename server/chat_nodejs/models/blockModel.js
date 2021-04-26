@@ -1,32 +1,35 @@
 var { Model, DataTypes } = require('sequelize');
 module.exports = (sequelize)=>{
   
-  var ChatRoom = sequelize.define('ChatRoom', {
+  var BlockList = sequelize.define('BlockList', {
     // Model attributes are defined here
-    roomId:{
+    id:{
       type:DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    userGlobal1: {
+    user: {
       type: DataTypes.INTEGER,
       references: {
         model: "UserGlobal", // this is the table name
         key: "globalId"
       }
     },
-    userGlobal2: {
+    blockedUser: {
       type: DataTypes.INTEGER,
       references: {
         model: "UserGlobal", // this is the table name
         key: "globalId"
       }
+    },
+    timeStart:{
+      type: DataTypes.DATE
     }
   }, {
     // Other model options go here
-    modelName: 'ChatRoom', // We need to choose the model name
-    tableName: 'ChatRoom',
+    modelName: 'BlockList', // We need to choose the model name
+    tableName: 'BlockList',
     timestamps: false //not create createdAt and updateAt timestamps
   });
 
@@ -38,7 +41,7 @@ module.exports = (sequelize)=>{
   // }).catch(err => {
   //   console.error('Unable to connect to the database:', err);
   // });
-  sequelize.models.ChatRoom = ChatRoom;
-  return ChatRoom;
+  sequelize.models.BlockList = BlockList;
+  return BlockList;
 };
 

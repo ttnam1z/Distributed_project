@@ -1,32 +1,32 @@
 var { Model, DataTypes } = require('sequelize');
 module.exports = (sequelize)=>{
   
-  var ChatRoom = sequelize.define('ChatRoom', {
+  var ServerData = sequelize.define('Server', {
     // Model attributes are defined here
-    roomId:{
+    id:{
       type:DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    userGlobal1: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: "UserGlobal", // this is the table name
-        key: "globalId"
-      }
+    address: {
+      type: DataTypes.STRING(256),
+      allowNull: false
     },
-    userGlobal2: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: "UserGlobal", // this is the table name
-        key: "globalId"
-      }
+    port:{
+      type: DataTypes.INTEGER
+    },
+    name:{
+      type: DataTypes.STRING(20)
+    },
+    hashpass: {
+      type: DataTypes.STRING(32)
+      // allowNull defaults to true
     }
   }, {
     // Other model options go here
-    modelName: 'ChatRoom', // We need to choose the model name
-    tableName: 'ChatRoom',
+    modelName: 'Server', // We need to choose the model name
+    tableName: 'Server',
     timestamps: false //not create createdAt and updateAt timestamps
   });
 
@@ -38,7 +38,7 @@ module.exports = (sequelize)=>{
   // }).catch(err => {
   //   console.error('Unable to connect to the database:', err);
   // });
-  sequelize.models.ChatRoom = ChatRoom;
-  return ChatRoom;
+  sequelize.models.ServerData = ServerData;
+  return ServerData;
 };
 

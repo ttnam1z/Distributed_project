@@ -38,18 +38,6 @@ const sequelize = new Sequelize(database.database, database.username, database.p
   dialect: database.dialect
 });
 
-// For all string can use
-String.prototype.hashCode = function() {
-  var hash = 0, i, chr;
-  if (this.length === 0) return hash;
-  for (i = 0; i < this.length; i++) {
-    chr   = this.charCodeAt(i);
-    hash  = ((hash << 5) - hash) + chr;
-    hash |= 0; // Convert to 32bit integer
-  }
-  return hash.toString();
-};
-
 // sequelize.authenticate().then(() => {
 //   console.log('Connection established successfully.');
 // }).catch(err => {
@@ -60,8 +48,27 @@ String.prototype.hashCode = function() {
 // });
 
 // Init all models
-let User = require('../models/userModel')(sequelize);
+let ServerData = require('../models/serverModel')(sequelize);
+let UserLocal = require('../models/userLocalModel')(sequelize);
+let UserGlobal = require('../models/userGlobalModel')(sequelize);
+let BlockList = require('../models/blockModel')(sequelize);
+let ChatRoom = require('../models/roomModel')(sequelize);
+let MessageList = require('../models/msgModel')(sequelize);
 
+/*
+ServerData.sync({force:true}).then(()=>{
+  UserLocal.sync({force:true}).then(()=>{
+    UserGlobal.sync({force:true}).then(()=>{
+      BlockList.sync({force:true}).then(()=>{
+        ChatRoom.sync({force:true}).then(()=>{
+          MessageList.sync({force:true}).then(()=>{});
+        });
+      });
+    });
+  });
+}).catch(err=>{
+
+});*/
 module.exports = sequelize
 
 

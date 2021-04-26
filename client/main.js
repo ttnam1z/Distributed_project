@@ -14,14 +14,15 @@ function create_data(msg,data){
           data:data})
 } 
 
-function onLoad(){
+$(document).ready(function onLoad(){
   var wsUri="ws://192.168.99.100:8000/"
   websocket = new WebSocket(wsUri); 
   websocket.onopen=function (evt){onOpen(evt)};
   websocket.onclose=function (evt){onClose(evt)};
   websocket.onmessage=function (evt){onMessage(evt)};
   websocket.onerror=function (evt){onError(evt)};
-}
+  //onMainDev();
+})
 
 // const socket = io("192.168.99.100:8000");
   
@@ -65,7 +66,7 @@ function processLoginRes(msg){
     notice.style.display = 'none';
     document.getElementById("loginform").style.display = 'none'
     document.getElementById("registerform").style.display = 'none'
-
+    document.getElementById("main_name").innerHTML = input_user_log.value
   } else {
     // show notify 
     notice.textContent = "login fail";
@@ -75,6 +76,7 @@ function processLoginRes(msg){
 
 function processRegisterRes(msg){
   if(msg == "OK"){
+    input_user_log.value = input_user_reg.value;
     // send login detail
     data = {
       name:input_user_reg.value,
@@ -145,4 +147,11 @@ function onChangeRegister(){
   document.getElementById("loginform").style.display = 'none'
   document.getElementById("registerform").style.display = 'block'
   notice.style.display = 'none';
+}
+function onMainDev(){
+  mainscreen.style.display = 'block';
+  notice.style.display = 'none';
+  document.getElementById("loginform").style.display = 'none'
+  document.getElementById("registerform").style.display = 'none'
+
 }

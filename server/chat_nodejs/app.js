@@ -14,7 +14,17 @@ var port = process.env.PORT || 8080
 // Create websocket listen to http server
 var websocket = require("./config/wsConfig")(http,sequelize);
 
+const Websocket = require('ws');
+var ws_lis = new Websocket.Server({ port:4567 })
+ws_lis.on('connection', async function(socket) {
+	console.log('connected to a server')
+	socket.on('message', async function(evt) {
 
+	});
+	socket.on('message', async function(evt) {
+
+	});
+});
 // console.log(__dirname)
 //Use middleware
 app.use(express.json());

@@ -1,7 +1,7 @@
 var { Model, DataTypes } = require('sequelize');
 module.exports = (sequelize)=>{
   
-  var User = sequelize.define('User', {
+  var UserLocal = sequelize.define('UserLocal', {
     // Model attributes are defined here
     id:{
       type:DataTypes.INTEGER,
@@ -19,9 +19,9 @@ module.exports = (sequelize)=>{
     }
   }, {
     // Other model options go here
-    modelName: 'Customer', // We need to choose the model name
-    tableName: 'User',
-    timestamps: false //not create createdAt and updateAt timestamps
+    modelName: 'UserLocal', // We need to choose the model name
+    tableName: 'UserLocal',
+    timestamps: false
   });
 
   // User.comparePassword = (password)=>{
@@ -32,7 +32,7 @@ module.exports = (sequelize)=>{
   // }).catch(err => {
   //   console.error('Unable to connect to the database:', err);
   // });
-  sequelize.models.User = User;
-  return User;
+  sequelize.models.UserLocal = UserLocal;
+  return UserLocal;
 };
 
