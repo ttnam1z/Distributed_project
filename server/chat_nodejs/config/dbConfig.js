@@ -54,7 +54,7 @@ let UserGlobal = require('../models/userGlobalModel')(sequelize);
 let BlockList = require('../models/blockModel')(sequelize);
 let ChatRoom = require('../models/roomModel')(sequelize);
 let MessageList = require('../models/msgModel')(sequelize);
-
+let RoomTime = require('../models/roomTimeModel')(sequelize);
 /*
 ServerData.sync({force:true}).then(()=>{
   UserLocal.sync({force:true}).then(()=>{

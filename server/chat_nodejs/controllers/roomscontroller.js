@@ -1,61 +1,41 @@
 const { Sequelize, Model, DataTypes } = require('sequelize');
 
-const sequelize = new Sequelize('distributed_project', 'nam', 'nam_pass', {
-  host: '192.168.99.100',
-  port:3306,
-  dialect: 'mysql'
-});
-
-
-sequelize.authenticate().then(() => {
-  console.log('Connection established successfully.');
-}).catch(err => {
-  console.error('Unable to connect to the database:', err);
-}).finally(() => {
-  sequelize.close();
-});
-
-module.exports = (sequelize,DataTypes,Model)=>{
-  class User extends Model {
-    static classLevelMethod() {
-      return 'foo';
-    }
-    instanceLevelMethod() {
-      return 'bar';
-    }
-    getname() {
-      return this.name;
-    }
-  }
-  
-  User.init({
-    // Model attributes are defined here
-    id:{
-      type:DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      autoIncrement: true
-    },
-    name: {
-      type: DataTypes.STRING(20),
-      allowNull: false
-    },
-    hashpass: {
-      type: DataTypes.STRING(32)
-      // allowNull defaults to true
-    }
-  }, {
-    // Other model options go here
-    sequelize, // We need to pass the connection instance
-    modelName: 'Customer', // We need to choose the model name
-    tableName: 'User' 
-  });
-  
-  // the defined model is the class itself
-  console.log(User === sequelize.models.User); // true
+module.exports.getRoom = async (sequelize, info)=>{
+  const chatRoom = sequelize.models.ChatRoom; 
   // const jane = await User.create({ name: 'name', hashpass: 'pass' }) //create = buiil + save
-  const user = User.build({ name: 'name', hashpass: 'pass' });
-  await user.save(); 
-  return User;
+  var room = await chatRoom.findOne({ where: { 
+    userGlobal1:info.idlist[0], 
+    userGlobal2:info.idlist[1]} });
+  
+  if (room === null) {
+    console.log('Not found!');
+  } else {
+    console.log(room instanceof chatRoom); // true
+    console.log(room); 
+  }
+  return room;
+};
+
+module.exports.createRoom = async (sequelize, info)=>{
+  const chatRoom = sequelize.models.ChatRoom; 
+  // const jane = await User.create({ name: 'name', hashpass: 'pass' }) //create = buiil + save
+  var room = chatRoom.build({ 
+    userGlobal1:info.idlist[0], 
+    userGlobal2:info.idlist[1]});
+  await room.save();
+  console.log("done save room" + room.userGlobal1 + " " +room.userGlobal2)
+
+  // Check create ok:
+  room = await chatRoom.findOne({where:{
+    userGlobal1:info.idlist[0], 
+    userGlobal2:info.idlist[1]
+  }})
+  if (room === null) {
+    console.log('save room fail');
+  } else {
+    console.log("save room successful"); // true
+    console.log(room); 
+  }
+  return room;
 };
 

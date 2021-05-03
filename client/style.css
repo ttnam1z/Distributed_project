@@ -105,12 +105,173 @@
 }
 
 .p-body-inner {
-    display: flex;
-    flex-direction: column;
+    /*display: flex;
+    flex-direction: column;*/
     width: 100%;
     background: #dabb85;
-    max-width: 1150px;
-    /*padding: 0 10px;*/
+    /*max-width: 1150px;
+    padding: 0 10px;*/
     margin: 0 auto;
     padding-bottom: 20px;
 }
+
+textarea {
+    height: 30px;
+    width: 100%;
+    resize: none;
+    /*resize: vertical;*/
+}
+
+#chatfield {
+    overflow-wrap: break-word;
+    height: 200px;
+    overflow-y: scroll;
+    background: #FFFFFF;
+    margin-bottom: 20px;
+}
+
+#userlist {
+    height: 200px;
+    overflow-y: scroll;
+    background: #FFFFFF;
+    margin-bottom: 20px;
+}
+
+message-renderer {
+    border-radius: 10px;
+    padding: 5px;
+    background: #0084ff;
+    max-width: 80%;
+    position: relative;
+    font-size: 13px;
+    padding: 4px 4px;
+    clear: both;
+    margin-bottom: 2px;
+}
+
+user-define {
+    
+    float: left;
+    padding: 0px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    clear: both;
+    font-size: 13px;
+    margin-bottom: 2px;
+}
+
+ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+ul li{
+    max-width: 80%;
+    display:inline-block;
+    clear: both;
+    padding: 5px;
+    border-radius: 10px;
+    margin-bottom: 2px;
+    /*font-family: Helvetica, Arial, sans-serif;*/
+}
+
+.frd{
+    background: #eee;
+    float: left;
+}
+
+.me{
+    float: right;
+    background: #0084ff;
+    color: #fff;
+}
+
+.userimage {
+    width: 32px;
+}
+
+.blockimage {
+    margin-left: 70px;
+    width: 32px;
+}
+.msgnotice {
+    width: 32px;
+}
+
+.userblock {
+    color: #ff0000;
+}
+
+.userunblock {
+    color: #099800;
+}
+
+.usercontent {
+    width: 300px;
+    height: 20px;
+    padding-top: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.user-comm {
+    background: rgba(0,0,0,0);
+    cursor: pointer;
+}
+
+.Comm{
+    z-index: 905;
+    display: block;
+    position: fixed;
+    /*top: 100px;
+    left: 50%;*/
+    background-color: #FFFFFF; /* Red */
+    /*padding: 2px 5px 2px 5px;*/
+    color: black;
+    margin-bottom: 15px;
+}
+
+.stopChat{
+    color: white;
+    float: right;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/*
+.him + .me{
+  border-bottom-right-radius: 5px;
+}
+
+.me + .me{
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.me:last-of-type {
+  border-bottom-right-radius: 5px;
+}
+<ul>
+ <li class="him start">By Other User</li>
+ <li class="him">By Other User</li>
+ <li class="him end">By Other User</li>
+    
+ <li class="me start">By this User, first message</li>
+ <li class="me">By this User, secondmessage</li>
+ <li class="me">By this User, third message</li>
+ <li class="me end">By this User, fourth message</li>
+
+ <li class="him start">By Other User</li>
+ <li class="him">By Other User</li>
+ <li class="him end">By Other User</li>
+    
+ <li class="me start">By this User, first message</li>
+ <li class="me">By this User, secondmessage</li>
+ <li class="me">By this User, third message</li>
+ <li class="me end">By this User, fourth message</li>
+
+</ul>
+*/

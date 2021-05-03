@@ -26,11 +26,14 @@
           This is an alert box.
         </div>
     </div>
+    <div id = "waiting" class ="overlay-container" style="display: none; opacity: 1; overflow: visible;">
+        
+    </div>
     <div id = "loginform" name="login" style="display: block;">
         <div class="overlay-title" style="display: block;">
             <h2>LOGIN</h2>
         </div>
-        <div class="overlay-content">
+        <div class="overlay-content container">
             <label style="width: 80px;">User Name</label>
             <input type="text" name="user" id="user_log"><br><br>
             <label style="width: 80px;">Password </label>
@@ -69,27 +72,73 @@
                     <label class="overlay-titleCloser" onclick="onLogout()">Logout</label>
                 </div>
             </div>
-
-            <div class="row" style="margin: 30px 0 0 0;">
+            <br>
+            <div class="row">
                 <div>
                     <label>Chat to:</label>
                     <input type="text">
                 </div>
             </div>
-
-            <div class="row" style="margin: 30px 0 0 0;">
-                <div class="col-sm-6">
-                    <label>Channel:</label>
-                    <label>Car</label>
-                    <ul>
-                        <li>User1</li>
-                        <li>User2</li>
-                        <li>User3</li>
-                    </ul>
+            <br>
+            <div class="row">
+                <div class="col-sm-6" style="padding-left: 0px;">
+                    <div>
+                        <label>UserList</label>
+                        <label></label>
+                    </div>
+                    <div id = "userlist">
+                        <user-define>
+                        <img class="userimage" src="./images/bullet_green.png">
+                        <div class="usercontent userblock">user1</div>
+                    <img class="blockimage" src="./images/block.png">
+                    <img class="msgnotice" src="./images/error.png">
+                    </user-define>
+                        <user-define>
+                        <img class="userimage" src="./images/bullet_green.png">
+                        <div class="usercontent userunblock">User1dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</div></user-define>
+                        <user-define>
+                        <img class="userimage" src="./images/bullet_white.png">
+                        <div class="usercontent userunblock">User1dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</div></user-define>
+                    </div>
                 </div>
     
-                <div class="col-sm-6">
-                    <label>Chat bar</label>
+                <div class="col-sm-6" style="padding-left: 0px;">
+                    <div>
+                        <label>Chat bar</label>
+                        <label class="stopChat" style="color: black;" onclick="onStopChat()">Stop Chat</label>
+                    </div>
+                    <ul id = "chatfield">
+                        <message-renderer class="me">
+                            <span>namesdfffffh
+                                hhhhhhhhhh
+                                h
+                                hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+                            </span>
+                        </message-renderer>
+                        <li class="frd start">By Other User</li>
+                         <li class="frd">By Other User</li>
+                         <li class="frd end">By Other User</li>
+                            
+                         <li class="me start">By this User, jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjfirst message</li>
+                         <li class="me">By this User, secondmessage</li>
+                         <li class="me">By this User, third message</li>
+                         <li class="me end">By this User, fourth message</li>
+
+                         <li class="frd start">By Other User</li>
+                         <li class="frd">By Other User</li>
+                         <li class="frd end">By Other User</li>
+                            
+                         <li class="me start">By this User, first message</li>
+                         <li class="me">By this User, secondmessage</li>
+                         <li class="me">By this User, third message</li>
+                         <li class="me end">By this User, fourth message</li>
+
+                    </ul>
+                    <div>
+                        <textarea id ="messagesend"></textarea>
+                        <button onclick="onSendClick()" style="float: right;">Send</button>
+                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -98,7 +147,27 @@
 
     <div id="testDiv">
         <button onclick="onMainDev()" style="width: 80px;">MainDev</button>
+        <user-define pos="-1" id="modeluser" style="display: none;">
+            <img class="userimage" src="./images/bullet_white.png">
+            <div class="usercontent userblock">user1</div>
+            <img class="blockimage" src="./images/white.png">
+            <img class="msgnotice" src="./images/white.png">
+        </user-define>
     </div>
+
+    <user-comm id = "Comm" class ="overlay-container user-comm" style="display: none; opacity: 1; overflow: visible;">
+        <div class="Comm">
+            <div style="background: #d4d3d3;">
+                <label>Option</label>
+                <label class="closebtn" style="color: black;" onclick="onCloseComm()">&times;</label>
+            </div>
+            
+            <div onclick="onChatClick()">Chat</div>
+            <div onclick="onBlockClick()">Block</div>
+            <div onclick="onUnblockClick()">Unblock</div>
+        </div>
+        
+    </user-comm>
     
     <script type="text/javascript">
         //const ws = new WebSocket('ws://192.168.99.100:8000');

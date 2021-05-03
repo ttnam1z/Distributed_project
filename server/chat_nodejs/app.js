@@ -8,23 +8,24 @@ var path = require('path')
 // var cookieParser = require('cookie-parser')
 // var cookieValidator = require('./cookieValidator')
 
+
 let http = require('http').Server(app)
 var port = process.env.PORT || 8080
 
+//Create websocket connect to other server
+var SocketHdl = require("./controllers/servercontroller");
+SocketHdl.initServer(sequelize);
+
 // Create websocket listen to http server
-var websocket = require("./config/wsConfig")(http,sequelize);
+// var websocket = require("./config/wsConfig")(http,sequelize);
+SocketHdl.initClientLis(http,sequelize);
+// SocketHdl.testt3();
+// SocketHdl.testt1();
+// SocketHdl.testt3();
+// SocketHdl.testt2();
+// SocketHdl.testt3();
 
-const Websocket = require('ws');
-var ws_lis = new Websocket.Server({ port:4567 })
-ws_lis.on('connection', async function(socket) {
-	console.log('connected to a server')
-	socket.on('message', async function(evt) {
 
-	});
-	socket.on('message', async function(evt) {
-
-	});
-});
 // console.log(__dirname)
 //Use middleware
 app.use(express.json());

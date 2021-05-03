@@ -4,7 +4,7 @@ module.exports = (sequelize)=>{
   var MessageList = sequelize.define('Message', {
     // Model attributes are defined here
     id:{
-      type:DataTypes.INTEGER,
+      type:DataTypes.BIGINT, // Maybe not need
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
@@ -13,7 +13,7 @@ module.exports = (sequelize)=>{
       type: DataTypes.INTEGER,
       references: {
         model: "ChatRoom", // this is the table name
-        key: "roomId"
+        key: "id"
       }
     },
     userGlobal: {

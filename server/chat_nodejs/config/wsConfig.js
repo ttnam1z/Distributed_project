@@ -1,3 +1,4 @@
+
 const WebSocket = require('ws');
 
 // For all string can use
@@ -143,6 +144,7 @@ module.exports = (http,sequelize)=>{
   return {sockets: sockets,
           server: server}
 }
+
 
 /* // Using socket io
   var list_socket = [];
