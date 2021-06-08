@@ -22,6 +22,10 @@ module.exports = (sequelize)=>{
         key: "id"
       }
     },
+    hashpass: {
+      type: DataTypes.STRING(32)
+      // allowNull defaults to true
+    }
   }, {
     // Other model options go here
     modelName: 'UserGlobal', // We need to choose the model name

@@ -2,7 +2,7 @@
 <html>
 <head >
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>CLIENT</title>
+	<title>CLIENT_linux</title>
 
 	<link rel="stylesheet" type="text/css" href="style.css">
     <style>
@@ -104,7 +104,7 @@
     
                 <div class="col-sm-6" style="padding-left: 0px;">
                     <div>
-                        <label>Chat bar</label>
+                        <label id = "friendname">Chat Bar</label>
                         <label class="stopChat" style="color: black;" onclick="onStopChat()">Stop Chat</label>
                     </div>
                     <ul id = "chatfield">
@@ -136,7 +136,7 @@
                     </ul>
                     <div>
                         <textarea id ="messagesend"></textarea>
-                        <button onclick="onSendClick()" style="float: right;">Send</button>
+                        <button id="sendbtn" onclick="onSendClick()" style="float: right;" disabled>Send</button>
                     </div>
                     
                 </div>
@@ -145,7 +145,7 @@
         
     </div> <br><br>
 
-    <div id="testDiv">
+    <div id="testDiv" style="display: none;">
         <button onclick="onMainDev()" style="width: 80px;">MainDev</button>
         <user-define pos="-1" id="modeluser" style="display: none;">
             <img class="userimage" src="./images/bullet_white.png">

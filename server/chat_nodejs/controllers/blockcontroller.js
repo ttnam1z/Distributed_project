@@ -22,7 +22,7 @@ module.exports.blockUser = async (sequelize,info)=>{
 module.exports.unblockUser = async (sequelize,info)=>{
   var blockModel = sequelize.models.BlockList;
 
-  var result = blockModel.destroy({
+  var result = await blockModel.destroy({
     where : {user:info.user, blockedUser:info.blockedUser}
   });
 
@@ -40,7 +40,7 @@ module.exports.getBlockUsers = async (sequelize,info)=>{
   console.log("get block users",info)
   var blockModel = sequelize.models.BlockList;
 
-  var result = blockModel.findAll({attributes: ['blockedUser','timeStart'],where:{user:info.user}})
+  var result = await blockModel.findAll({attributes: ['blockedUser','timeStart'],where:{user:info.user}})
   if(result == null){
     console.log("cant get all block info")
   }
@@ -50,11 +50,20 @@ module.exports.getBlockUsers = async (sequelize,info)=>{
   return result;
 }
 
+
+module.exports.getAllBlocks = async (sequelize)=>{
+  console.log("get all block")
+  var blockModel = sequelize.models.BlockList;
+
+  var result = await blockModel.findAll();
+  return result;
+}
+
 module.exports.getBlockUser = async (sequelize,info)=>{
   console.log("get block users",info)
   var blockModel = sequelize.models.BlockList;
 
-  var result = blockModel.findOne({attributes: ['blockedUser','timeStart'],where:{
+  var result = await blockModel.findOne({attributes: ['blockedUser','timeStart'],where:{
     user:info.user, 
     blockedUser:info.blockedUser
   }})
@@ -66,3 +75,4 @@ module.exports.getBlockUser = async (sequelize,info)=>{
   console.log(result)
   return result;
 }
+

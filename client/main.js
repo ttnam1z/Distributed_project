@@ -12,13 +12,17 @@ let glbuserId;
 let UserList;
 let friendId=-1;
 let MsgList;
+let chatting=0;
+let clickinfo =-2;
 
 function clearVarialbe(){
   chatdisplay.innerHTML = ""
   glbuserId=-1;
   UserList=null;
   friendId=-1;
+  clickinfo=-2;
   MsgList = null;
+  chatting=0;
 }
 
 function show_notice(msg){
@@ -38,32 +42,15 @@ function create_data(msg,data){
 } 
 
 $(document).ready(function onLoad(){
-  var wsUri="ws://192.168.99.100:8000/"
-  websocket = new WebSocket(wsUri); 
-  websocket.onopen=function (evt){onOpen(evt)};
-  websocket.onclose=function (evt){onClose(evt)};
-  websocket.onmessage=function (evt){onMessage(evt)};
-  websocket.onerror=function (evt){onError(evt)};
+  websocket = null
+  // var wsUri="ws://192.168.99.100:8000/"
+  // websocket = new WebSocket(wsUri); 
+  // websocket.onopen=function (evt){onOpen(evt)};
+  // websocket.onclose=function (evt){onClose(evt)};
+  // websocket.onmessage=function (evt){onMessage(evt)};
+  // websocket.onerror=function (evt){onError(evt)};
   //onMainDev();
 })
-
-// const socket = io("192.168.99.100:8000");
-  
-// socket.on('loginResponse',()=>{
-
-// })
-
-// socket.on('register',()=>{
-
-// })
-
-// socket.on('response',data=>{
-  
-// })
-
-// socket.on('test',data=>{
-//   console.log(data)
-// })
 
 
 if(window.WebSocket == undefined){
@@ -74,13 +61,16 @@ if(window.WebSocket == undefined){
 
 
 function onOpen(evt){
-  // console.log("open websocket ok")
+  console.log("open websocket ok")
   // data = {name:'something'}
   // websocket.send(JSON.stringify(data));
 }
+
 function onClose(evt){
   console.log("close the socket");
   websocket = null;
+  onLogout();
+  show_notice("server conection fail")
 }
 
 function onError(evt){
@@ -139,7 +129,7 @@ function processLoginRes(msg){
   } else if (msg.type == "userList"){
     UserList = msg.result
   } else if (msg.type == "extraInfo"){
-    // TODO update UserList
+    // update UserList
     extraInfo = msg.result
     var arrlen = extraInfo.length
     while(arrlen--){
@@ -215,16 +205,33 @@ function processNewUser(user){
 }
 
 function processChatMsg(msg){
-  // TODO check if current chatting
-
-  // TODO update notify
-
-  // update chatfield
-  var item = document.createElement("li")
-  item.className="frd"
-  item.innerText = msg.content
-  chatdisplay.appendChild(item)
-  chatdisplay.scrollTop = chatdisplay.scrollHeight
+  // Check friend id
+  if (chatting == 1 && UserList[friendId].globalId == msg.userGlobal){
+    // update chatfield
+    var item = document.createElement("li")
+    item.className="frd"
+    item.innerText = msg.content
+    chatdisplay.appendChild(item)
+    chatdisplay.scrollTop = chatdisplay.scrollHeight
+    
+  } else {
+    // update notify
+    websocket.send(create_data("UserNotify",{
+      user:glbuserId,
+      info:msg.userGlobal
+    }));
+    var arrlen = UserList.length
+    while(arrlen--){
+      if(UserList[arrlen].globalId == msg.userGlobal){
+        var pos = UserList[arrlen].viewpos;
+        s = userdisplay.children[pos]
+        UserList[arrlen].msg == 1
+        s.children[3].src='./images/error.png'
+        
+        break;
+      }
+    }
+  }
 }
 
 function processAllNotice(data){
@@ -240,6 +247,18 @@ function processAllNotice(data){
       break;
     case "chatMsg":
       processChatMsg(data.data);
+      break;
+    case "userNotify":
+      var arrlen = UserList.length
+      while(arrlen--){
+        if(UserList[arrlen].globalId == data.data.user){
+          var pos = UserList[arrlen].viewpos;
+          s = userdisplay.children[pos]
+          UserList[arrlen].msg == 1
+          s.children[3].src='./images/error.png'
+          break;
+        }
+      }
       break;
     default:
       
@@ -266,10 +285,21 @@ function updateMsgList(msgList){
 function processChatRes(msg){
   switch(msg.type){
     case "joinroom_res":
-      // TODO show error if Fail
+      
+      if(msg.result=="OK"){
+        chatting = 1;
+        var pos = UserList[friendId].viewpos;
+        var s = userdisplay.children[pos]
+        s.children[3].src='./images/white.png'
+        document.getElementById('friendname').textContent = 'Chat : ' + UserList[friendId].name
+        document.getElementById('sendbtn').disabled = false;
+      } else {
+
+      }
+
       break;
     case "msgList":
-      // Todo show message in list
+      //  show message in list
       typeof msg.result;
       MsgList = msg.result.sort(function(a,b){
         return (a.timeStamp < b.timeStamp)? -1 : 1;
@@ -290,8 +320,15 @@ function processChatRes(msg){
         message.value = ""
         chatdisplay.scrollTop = chatdisplay.scrollHeight
       } else {
-        // TODO send problem, show notice
+        
       }
+      break;
+    case "outroom_res":
+      chatdisplay.innerHTML = ""
+      chatting = 0;
+      document.getElementById('friendname').textContent = 'Chat Bar'
+      document.getElementById('sendbtn').disabled = true;
+      break;
     default:
   }
 }
@@ -406,21 +443,30 @@ function onUserDifineClick(evt){
   comm.lastElementChild.style.top = (evt.clientY-10) +'px';
 
   // get friend id
-  friendId = parseInt(evt.currentTarget.getAttribute("pos"));
-  console.log(friendId);
+  clickinfo = parseInt(evt.currentTarget.getAttribute("pos"));
+  
+  console.log(clickinfo);
 }
 
 function onBlockClick(){
   // Change to block
-  if(UserList[friendId].block == 0){
-    var pos = UserList[friendId].viewpos;
+  if(UserList[clickinfo].block == 0){
+    var pos = UserList[clickinfo].viewpos;
     var s = userdisplay.children[pos]
     s.children[2].src='./images/block.png'
-    UserList[friendId].block = 1
-    // TODO Send server block message
+    UserList[clickinfo].block = 1
+    s.children[3].src='./images/white.png'
+    UserList[clickinfo].msg = 0
+    
+    // check current chatting withblock
+    if(clickinfo == friendId){
+      onStopChat();
+    }
+
+    // Send server block message
     data = {
-      userId:UserList[friendId].globalId,
-      name:UserList[friendId].name,
+      userId:UserList[clickinfo].globalId,
+      name:UserList[clickinfo].name,
       block:1
     }
     websocket.send(create_data("blockmsg",data));
@@ -429,24 +475,24 @@ function onBlockClick(){
 }
 
 function onChatClick(){
+  friendId = clickinfo;
   // Join room
   data = {type:"joinRoom",friendId: UserList[friendId].globalId}
   websocket.send(create_data("chat",data));
 
-  // TODO Set name chat
   onCloseComm();
 }
 
 function onUnblockClick(){
-  if(UserList[friendId].block == 1){
-    var pos = UserList[friendId].viewpos;
+  if(UserList[clickinfo].block == 1){
+    var pos = UserList[clickinfo].viewpos;
     var s = userdisplay.children[pos]
     s.children[2].src='./images/white.png'
-    UserList[friendId].block = 0
-    // TODO inform server
+    UserList[clickinfo].block = 0
+    // inform server
     data = {
-      userId:UserList[friendId].globalId,
-      name:UserList[friendId].name,
+      userId:UserList[clickinfo].globalId,
+      name:UserList[clickinfo].name,
       block:0
     }
     websocket.send(create_data("blockmsg",data));
@@ -466,7 +512,7 @@ function onCloseComm(){
 }
 
 function onStopChat(){
-  //TODO clear chat message list
+  // clear chat message list and update name
 
   data = {type:"outRoom",friend: UserList[friendId].globalId}
   websocket.send(create_data("chat",data));

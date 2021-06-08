@@ -1,4 +1,4 @@
--- user: nam
+-- user: nam1
 -- pass: nam_pass
 
 
@@ -16,16 +16,25 @@
 --        hashpass varchar(32)
 --        );
 
-use distributed_project
-drop table distributed_project.Message;
-drop table distributed_project.ServerNotify;
-drop table distributed_project.UserNotify;
-drop table distributed_project.ChatRoom;
-drop table distributed_project.BlockList;
-drop table distributed_project.UserGlobal;
-drop table distributed_project.UserLocal;
-drop table distributed_project.Server;
+--use distributed_project
+--drop table distributed_project.Message;
+--drop table distributed_project.ServerNotify;
+--drop table distributed_project.UserNotify;
+--drop table distributed_project.ChatRoom;
+--drop table distributed_project.BlockList;
+--drop table distributed_project.UserGlobal;
+--drop table distributed_project.UserLocal;
+--drop table distributed_project.Server;
 
+use distributed_project_1
+drop table distributed_project_1.Message;
+drop table distributed_project_1.ServerNotify;
+drop table distributed_project_1.UserNotify;
+drop table distributed_project_1.ChatRoom;
+drop table distributed_project_1.BlockList;
+drop table distributed_project_1.UserGlobal;
+drop table distributed_project_1.UserLocal;
+drop table distributed_project_1.Server;
 
 create table Server (
     id INT PRIMARY KEY AUTO_INCREMENT,
@@ -97,8 +106,8 @@ create table Message (
 
 --Delete from distributed_project.UserGlobal;
 --Delete from distributed_project.UserLocal;
-Delete from distributed_project.ChatRoom;
-Delete from distributed_project.Message;
+--Delete from distributed_project.ChatRoom;
+--Delete from distributed_project.Message;
 -- Insert init data
-Insert into distributed_project.Server(address,hashpass,name,port) value('192.168.99.100','nam','LocalServer',8080);
+Insert into distributed_project_1.Server(address,hashpass,name,port) value('127.0.0.1','nam','LocalServer',8082);
 --update distributed_project.Server Set address='192.168.99.100',hashpass='nam',name='LocalServer',port=8080 where id = 1;
