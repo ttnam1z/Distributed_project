@@ -1,0 +1,277 @@
+.overlay-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 900;
+    background: rgba(0,0,0,0.35);
+    -webkit-overflow-scrolling: touch;
+    opacity: 0;
+    -webkit-transition: opacity .25s ease;
+    transition: opacity .25s ease;
+}
+
+.overlay {
+    position: relative;
+    margin: 40px auto 10px;
+    margin-top: 4vh;
+    width: 100%;
+    max-width: 800px;
+    background: #dabb85;
+    /*background: #141517;*/
+    color: #000;
+    border: 1px solid #ae6814;
+    border-radius: 4px;
+    box-shadow: 0 5px 15px 0 rgba(0,0,0,0.5);
+    outline: none;
+}
+.overlay .overlay-title {
+    display: block;
+}
+
+.overlay-title {
+    text-align: center;
+    display: none;
+    margin: 0;
+    font-weight: 400;
+    font-size: 20px;
+    color: #DB8928;
+    background: #441b03;
+    border-bottom: 1px solid #cca156;
+    padding-top: 6px;
+    padding-right: 10px;
+    padding-bottom: 6px;
+    padding-left: 10px;
+    margin-bottom: 20px;
+}
+.overlay-title:after {
+    clear: both;
+}
+.overlay-title:before, .overlay-title:after {
+    content: " ";
+    display: table;
+}
+.overlay-titleCloser {
+    float: right;
+    cursor: pointer;
+    margin-left: 5px;
+    text-decoration: none;
+    opacity: .5;
+    -webkit-transition: all .25s ease;
+    transition: all .25s ease;
+}
+.overlay-content {
+    padding-left: 20px;
+    padding-bottom: 20px;
+    background: #dabb85;
+}
+.button--primary {
+    color: #ffffff;
+    background: #d64000;
+    min-width: 80px;
+    border-color: #f04800 #bd3800 #bd3800 #f04800;
+}
+
+
+.alert {
+    display: block;
+    position: fixed;
+    top: 100px;
+    left: 50%;
+    z-index: 910;
+    padding: 20px;
+    background-color: #f44336; /* Red */
+    color: white;
+    margin-bottom: 15px;
+}
+
+/* The close button */
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+    color: black;
+}
+
+.p-body-inner {
+    /*display: flex;
+    flex-direction: column;*/
+    width: 100%;
+    background: #dabb85;
+    /*max-width: 1150px;
+    padding: 0 10px;*/
+    margin: 0 auto;
+    padding-bottom: 20px;
+}
+
+textarea {
+    height: 30px;
+    width: 100%;
+    resize: none;
+    /*resize: vertical;*/
+}
+
+#chatfield {
+    overflow-wrap: break-word;
+    height: 200px;
+    overflow-y: scroll;
+    background: #FFFFFF;
+    margin-bottom: 20px;
+}
+
+#userlist {
+    height: 200px;
+    overflow-y: scroll;
+    background: #FFFFFF;
+    margin-bottom: 20px;
+}
+
+message-renderer {
+    border-radius: 10px;
+    padding: 5px;
+    background: #0084ff;
+    max-width: 80%;
+    position: relative;
+    font-size: 13px;
+    padding: 4px 4px;
+    clear: both;
+    margin-bottom: 2px;
+}
+
+user-define {
+    
+    float: left;
+    padding: 0px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    clear: both;
+    font-size: 13px;
+    margin-bottom: 2px;
+}
+
+ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+ul li{
+    max-width: 80%;
+    display:inline-block;
+    clear: both;
+    padding: 5px;
+    border-radius: 10px;
+    margin-bottom: 2px;
+    /*font-family: Helvetica, Arial, sans-serif;*/
+}
+
+.frd{
+    background: #eee;
+    float: left;
+}
+
+.me{
+    float: right;
+    background: #0084ff;
+    color: #fff;
+}
+
+.userimage {
+    width: 32px;
+}
+
+.blockimage {
+    margin-left: 70px;
+    width: 32px;
+}
+.msgnotice {
+    width: 32px;
+}
+
+.userblock {
+    color: #ff0000;
+}
+
+.userunblock {
+    color: #099800;
+}
+
+.usercontent {
+    width: 300px;
+    height: 20px;
+    padding-top: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.user-comm {
+    background: rgba(0,0,0,0);
+    cursor: pointer;
+}
+
+.Comm{
+    z-index: 905;
+    display: block;
+    position: fixed;
+    /*top: 100px;
+    left: 50%;*/
+    background-color: #FFFFFF; /* Red */
+    /*padding: 2px 5px 2px 5px;*/
+    color: black;
+    margin-bottom: 15px;
+}
+
+.stopChat{
+    color: white;
+    float: right;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/*
+.him + .me{
+  border-bottom-right-radius: 5px;
+}
+
+.me + .me{
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.me:last-of-type {
+  border-bottom-right-radius: 5px;
+}
+<ul>
+ <li class="him start">By Other User</li>
+ <li class="him">By Other User</li>
+ <li class="him end">By Other User</li>
+    
+ <li class="me start">By this User, first message</li>
+ <li class="me">By this User, secondmessage</li>
+ <li class="me">By this User, third message</li>
+ <li class="me end">By this User, fourth message</li>
+
+ <li class="him start">By Other User</li>
+ <li class="him">By Other User</li>
+ <li class="him end">By Other User</li>
+    
+ <li class="me start">By this User, first message</li>
+ <li class="me">By this User, secondmessage</li>
+ <li class="me">By this User, third message</li>
+ <li class="me end">By this User, fourth message</li>
+
+</ul>
+*/
