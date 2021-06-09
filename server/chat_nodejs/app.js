@@ -18,7 +18,7 @@ SocketHdl.initServer(sequelize);
 
 // Create websocket listen to http server
 // var websocket = require("./config/wsConfig")(http,sequelize);
-SocketHdl.initClientLis(http,sequelize);
+setTimeout(function() {SocketHdl.initClientLis(http,sequelize)}, 6000);
 // SocketHdl.testt3();
 // SocketHdl.testt1();
 // SocketHdl.testt3();

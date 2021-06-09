@@ -1,41 +1,186 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>CLIENT</title>
+<head >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>CLIENT_linux</title>
 
-	<!--link rel="stylesheet" type="text/css" href="style.css"-->
+	<link rel="stylesheet" type="text/css" href="style.css">
     <style>
+        div {
+            
+        }
         label {
                 display: inline-block;
             }
+        button {
+            width: 70px;
+            margin-right: 10px;
+        }
         
     </style>
 </head>
-<body onload="onLoad()">
-    <div id = "loginform" name="login" style="display: block;">
-        <h2>LOGIN</h2>
-        <label style="width: 80px;">User Name</label>
-        <input type="text" name="user" id="user_log"><br><br>
-        <label style="width: 80px;">Password </label>
-        <input type="password" name="pass" id="pass_log"><br><br>
-        <button onclick="onLogin()">Submit</button>
-        <button onclick="onChangeRegister()">Register</button>
+<body class = "p-body-inner">
+    <div id = "infor" class ="overlay-container" style="display: none; opacity: 1; overflow: visible;">
+        <div class="alert">
+          <span class="closebtn" onclick="onCloseNotice()">&times;</span>
+          This is an alert box.
+        </div>
     </div>
-    <div id = "registerform" style="display: none;">
-        <h2>REGISTER</h2>
-        <label style="width: 80px;">User Name</label>
-        <input type="text" name="user" id="user_reg"><br><br>
-        <label style="width: 80px;">Password </label>
-        <input type="password" name="pass" id="pass_reg"><br><br>
-        <button onclick="onRegister()">Submit</button>
-        <button onclick="onChangeLogin()">Login</button>
+    <div id = "waiting" class ="overlay-container" style="display: none; opacity: 1; overflow: visible;">
+        
+    </div>
+    <div id = "loginform" name="login" style="display: block;">
+        <div class="overlay-title" style="display: block;">
+            <h2>LOGIN</h2>
+        </div>
+        <div class="overlay-content container">
+            <label style="width: 80px;">User Name</label>
+            <input type="text" name="user" id="user_log"><br><br>
+            <label style="width: 80px;">Password </label>
+            <input type="password" name="pass" id="pass_log"><br><br>
+            <button class ="" onclick="onLogin()">Login</button>
+            <button class ="" onclick="onShowRegister()">Register</button>
+        </div>
+    </div>
+    <div id = "registerform" class ="overlay-container" style="display: none; opacity: 1; overflow: visible;">
+        <div class="overlay">
+            <div class="overlay-title">
+                REGISTER
+                <a class="overlay-titleCloser" onclick="onCloseRegister()">&times;</a>
+            </div>
+            <div class="overlay-content">
+                <label style="width: 80px;">User Name</label>
+                <input type="text" name="user" id="user_reg"><br>
+                <br>
+                <label style="width: 80px;">Password </label>
+                <input type="password" name="pass" id="pass_reg"><br>
+                <br>
+                <button class ="" onclick="onRegister()">Register</button> 
+            </div>
+        </div>
     </div>
 
     <div id="mainscreen" style="display: none;">
+        <div class="overlay-title"  style="display: block;">
+            <h2>Main Screen</h2>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div>
+                    <label>User Name:</label>
+                    <label id="main_name">name</label>
+                    <label class="overlay-titleCloser" onclick="onLogout()">Logout</label>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div>
+                    <label>Chat to:</label>
+                    <input type="text">
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-6" style="padding-left: 0px;">
+                    <div>
+                        <label>UserList</label>
+                        <label></label>
+                    </div>
+                    <div id = "userlist">
+                        <user-define>
+                        <img class="userimage" src="./images/bullet_green.png">
+                        <div class="usercontent userblock">user1</div>
+                    <img class="blockimage" src="./images/block.png">
+                    <img class="msgnotice" src="./images/error.png">
+                    </user-define>
+                        <user-define>
+                        <img class="userimage" src="./images/bullet_green.png">
+                        <div class="usercontent userunblock">User1dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</div></user-define>
+                        <user-define>
+                        <img class="userimage" src="./images/bullet_white.png">
+                        <div class="usercontent userunblock">User1dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</div></user-define>
+                    </div>
+                </div>
+    
+                <div class="col-sm-6" style="padding-left: 0px;">
+                    <div>
+                        <label id = "friendname">Chat Bar</label>
+                        <label class="stopChat" style="color: black;" onclick="onStopChat()">Stop Chat</label>
+                    </div>
+                    <ul id = "chatfield">
+                        <message-renderer class="me">
+                            <span>namesdfffffh
+                                hhhhhhhhhh
+                                h
+                                hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+                            </span>
+                        </message-renderer>
+                        <li class="frd start">By Other User</li>
+                         <li class="frd">By Other User</li>
+                         <li class="frd end">By Other User</li>
+                            
+                         <li class="me start">By this User, jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjfirst message</li>
+                         <li class="me">By this User, secondmessage</li>
+                         <li class="me">By this User, third message</li>
+                         <li class="me end">By this User, fourth message</li>
 
+                         <li class="frd start">By Other User</li>
+                         <li class="frd">By Other User</li>
+                         <li class="frd end">By Other User</li>
+                            
+                         <li class="me start">By this User, first message</li>
+                         <li class="me">By this User, secondmessage</li>
+                         <li class="me">By this User, third message</li>
+                         <li class="me end">By this User, fourth message</li>
+
+                    </ul>
+                    <div>
+                        <textarea id ="messagesend"></textarea>
+                        <button id="sendbtn" onclick="onSendClick()" style="float: right;" disabled>Send</button>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        
+    </div> <br><br>
+
+    <div id="testDiv" style="display: none;">
+        <button onclick="onMainDev()" style="width: 80px;">MainDev</button>
+        <user-define pos="-1" id="modeluser" style="display: none;">
+            <img class="userimage" src="./images/bullet_white.png">
+            <div class="usercontent userblock">user1</div>
+            <img class="blockimage" src="./images/white.png">
+            <img class="msgnotice" src="./images/white.png">
+        </user-define>
     </div>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.min.js"></script>
+    <user-comm id = "Comm" class ="overlay-container user-comm" style="display: none; opacity: 1; overflow: visible;">
+        <div class="Comm">
+            <div style="background: #d4d3d3;">
+                <label>Option</label>
+                <label class="closebtn" style="color: black;" onclick="onCloseComm()">&times;</label>
+            </div>
+            
+            <div onclick="onChatClick()">Chat</div>
+            <div onclick="onBlockClick()">Block</div>
+            <div onclick="onUnblockClick()">Unblock</div>
+        </div>
+        
+    </user-comm>
+    
+    <script type="text/javascript">
+        //const ws = new WebSocket('ws://192.168.99.100:8000');
+    </script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" type="text/css" href="./bootstrap-3.3.7/css/bootstrap.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet" type="text/css" href="./bootstrap-3.3.7/css/bootstrap-theme.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script type="text/javascript" src="./bootstrap-3.3.7/js/jquery-3.6.0.js.js"></script>
+    <script type="text/javascript" src="./bootstrap-3.3.7/js/bootstrap.js"></script>
+	<!--script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.min.js"></script-->
 	<script type="text/javascript" src="main.js"></script>
 </body>
 </html>

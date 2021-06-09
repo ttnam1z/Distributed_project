@@ -93,12 +93,12 @@ module.exports.initServer = async (sequelize)=>{
         // receive user status
         user_status = msg.data
         if(!gblList_load){
+          gblList_load = true
           var glbdata = await glbusrcontrol.getUsers(sequelize);
             glbdata.forEach(element => {
             element.dataValues.status = 0;
             gblList.push(element.dataValues);
           });
-          gblList_load = true
         }
         console.log(gblList)
         msg.data.forEach(element=>{
@@ -346,6 +346,8 @@ module.exports.initServer = async (sequelize)=>{
       var arrlen = gblList.length
       while(arrlen--){
         if (gblList[arrlen].server_log_Id == 2 && gblList[arrlen].status == 1){
+          gblList[arrlen].status = 0
+          gblList[arrlen].server_log_Id == 0
           // send notify to other local user
           sendNotifyOtherClient(create_data("userOff",{name:gblList[arrlen].name,globalId:gblList[arrlen].globalId})).catch(err=>{
             console.log(err)
@@ -371,12 +373,12 @@ module.exports.initServer = async (sequelize)=>{
 
 module.exports.initClientLis = async (http,sequelize)=>{
   if(!gblList_load){
+    gblList_load = true
     var glbdata = await glbusrcontrol.getUsers(sequelize);
       glbdata.forEach(element => {
       element.dataValues.status = 0;
       gblList.push(element.dataValues);
     });
-    gblList_load = true
   }
 
   // var gbllen = gblList.length
