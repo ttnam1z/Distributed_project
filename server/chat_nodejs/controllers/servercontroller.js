@@ -428,11 +428,17 @@ module.exports.initClientLis = async (http,sequelize)=>{
         clearVariable();
         var glbuser = await glbusrcontrol.getUser(sequelize,name,serverConfig[0].id)    
         usergblId = glbuser.globalId;
+
         console.log('a user login success ' + msg.name)
         userStatus = 1;
         var arrlen = gblList.length
         while(arrlen--){
           if (gblList[arrlen].globalId === glbuser.globalId){
+            if(gblList[arrlen].status === 1){
+              // check already login
+              res = create_data("login_res",{type:"result",result:result})
+              return res;
+            }
             gblList[arrlen].status = 1;
             gblList[arrlen].server_log_Id = 1;
             break;
@@ -509,10 +515,10 @@ module.exports.initClientLis = async (http,sequelize)=>{
         res = create_data("login_res",{type:"result",result:result})
       }
       
-      if(result == "Fail" && userStatus ==1){
-        // Case current login then login again fail
-        socket.close();
-      }
+      //if(result == "Fail" && userStatus ==1){
+      //  // Case current login then login again fail
+      //  socket.close();
+      //}
       return res;
     }
 
